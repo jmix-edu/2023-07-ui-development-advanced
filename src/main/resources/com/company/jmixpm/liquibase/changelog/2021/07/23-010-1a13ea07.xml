@@ -39,17 +39,30 @@
         </createTable>
     </changeSet>
     <changeSet id="3" author="jmixpm">
+        <createIndex indexName="IDX_PROJECT_ON_MANAGER" tableName="PROJECT">
+            <column name="MANAGER_ID"/>
+        </createIndex>
+
         <addForeignKeyConstraint baseColumnNames="MANAGER_ID" baseTableName="PROJECT"
                                  constraintName="FK_PROJECT_ON_MANAGER" referencedColumnNames="ID"
                                  referencedTableName="USER_"/>
     </changeSet>
     <changeSet id="4" author="jmixpm">
+        <createIndex indexName="IDX_TASK__ON_ASSIGNEE" tableName="TASK_">
+            <column name="ASSIGNEE_ID"/>
+        </createIndex>
+
         <addForeignKeyConstraint baseColumnNames="ASSIGNEE_ID" baseTableName="TASK_"
                                  constraintName="FK_TASK__ON_ASSIGNEE" referencedColumnNames="ID"
                                  referencedTableName="USER_"/>
     </changeSet>
     <changeSet id="5" author="jmixpm">
-        <addForeignKeyConstraint baseColumnNames="PROJECT_ID" baseTableName="TASK_" constraintName="FK_TASK__ON_PROJECT"
+        <createIndex indexName="IDX_TASK__ON_PROJECT" tableName="TASK_">
+            <column name="PROJECT_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="PROJECT_ID" baseTableName="TASK_"
+                                 constraintName="FK_TASK__ON_PROJECT"
                                  referencedColumnNames="ID" referencedTableName="PROJECT"/>
     </changeSet>
 </databaseChangeLog>

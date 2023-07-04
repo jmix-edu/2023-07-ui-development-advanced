@@ -10,9 +10,13 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @JmixEntity
-@Table(name = "TASK_")
+@Table(name = "TASK_", indexes = {
+        @Index(name = "IDX_TASK__ON_ASSIGNEE", columnList = "ASSIGNEE_ID"),
+        @Index(name = "IDX_TASK__ON_PROJECT", columnList = "PROJECT_ID")
+})
 @Entity(name = "Task_")
 public class Task {
+
     @JmixGeneratedValue
     @Column(name = "ID", nullable = false)
     @Id
