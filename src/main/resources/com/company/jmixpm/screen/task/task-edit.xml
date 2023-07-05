@@ -9,7 +9,7 @@
                 <property name="assignee" fetchPlan="_base"/>
                 <property name="project" fetchPlan="_base"/>
             </fetchPlan>
-            <loader/>
+            <loader id="loader"/>
         </instance>
     </data>
     <facets>

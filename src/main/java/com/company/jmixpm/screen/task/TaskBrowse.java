@@ -6,5 +6,6 @@ import com.company.jmixpm.entity.Task;
 @UiController("Task_.browse")
 @UiDescriptor("task-browse.xml")
 @LookupComponent("tasksTable")
+@MultipleOpen
 public class TaskBrowse extends StandardLookup<Task> {
 }
