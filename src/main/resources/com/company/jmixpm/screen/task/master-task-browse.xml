@@ -1,6 +1,6 @@
 <window xmlns="http://jmix.io/schema/ui/window"
         xmlns:c="http://jmix.io/schema/ui/jpql-condition"
-        caption="msg://masterTaskBrowse.caption"
+        caption="msg:///masterTaskBrowse.caption"
         focusComponent="table">
     <data>
         <collection id="tasksDc"

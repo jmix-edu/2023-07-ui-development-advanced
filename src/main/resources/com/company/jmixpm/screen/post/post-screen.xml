@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://postScreen.caption">
+    <data>
+        <collection id="postsDc" class="com.company.jmixpm.entity.Post">
+            <fetchPlan extends="_base">
+                <property name="userId"/>
+                <property name="body"/>
+            </fetchPlan>
+            <loader id="postsDl">
+                <query>
+                    <![CDATA[select e from Post e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+
+    <layout expand="postsTable" spacing="true">
+        <hbox id="buttonsPanel">
+            <button id="userInfoBtn" action="postsTable.userInfo"/>
+        </hbox>
+        <table id="postsTable" width="100%" dataContainer="postsDc">
+            <actions>
+                <action id="userInfo" icon="VIEW_ACTION" caption="msg://userInfo.caption"/>
+            </actions>
+            <columns>
+                <column id="id"/>
+                <column id="userId"/>
+                <column id="title"/>
+                <column id="body"/>
+            </columns>
+        </table>
+        <pagination id="pagination">
+            <loaderProvider loaderId="postsDl"/>
+        </pagination>
+    </layout>
+</window>

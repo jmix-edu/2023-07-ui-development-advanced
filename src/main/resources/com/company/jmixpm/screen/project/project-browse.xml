@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://jmix.io/schema/ui/window"
-        xmlns:c="http://jmix.io/schema/ui/jpql-condition"
         caption="msg://projectBrowse.caption"
         focusComponent="projectsTable">
     <data readOnly="true">
@@ -44,6 +43,7 @@
                 <action id="create" type="create"/>
                 <action id="edit" type="edit"/>
                 <action id="remove" type="remove"/>
+                <action id="generateData" caption="Generate"/>
             </actions>
             <columns>
                 <column id="name"/>
@@ -51,12 +51,17 @@
                 <column id="endDate"/>
                 <column id="manager"/>
             </columns>
-            <simplePagination/>
+            <simplePagination autoLoad="true"
+                              itemsPerPageDefaultValue="10"
+                              itemsPerPageVisible="true"
+                              itemsPerPageUnlimitedOptionVisible="false"
+                              itemsPerPageOptions="10, 20"/>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
                 <button id="createBtn" action="projectsTable.create"/>
                 <button id="editBtn" action="projectsTable.edit"/>
                 <button id="removeBtn" action="projectsTable.remove"/>
+                <button id="generateDtn" action="projectsTable.generateData"/>
             </buttonsPanel>
         </groupTable>
         <hbox id="lookupActions" spacing="true" visible="false">

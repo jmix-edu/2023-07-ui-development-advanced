@@ -16,33 +16,4 @@ import org.springframework.beans.factory.annotation.Autowired;
 @EditedEntityContainer("taskDc")
 @DialogMode(width = "AUTO", height = "AUTO", forceDialog = true)
 public class TaskEdit extends StandardEditor<Task> {
-    @Autowired
-    private TaskService taskService;
-    @Autowired
-    private ScreenBuilders screenBuilders;
-
-    @Subscribe(id = "taskDc", target = Target.DATA_CONTAINER)
-    public void onTaskDcItemChange(final InstanceContainer.ItemChangeEvent<Task> event) {
-
-    }
-
-    @Install(to = "loader", target = Target.DATA_LOADER)
-    private Task loaderLoadDelegate(final LoadContext<Task> loadContext) {
-        return null;
-    }
-
-    @Subscribe
-    public void onInitEntity(InitEntityEvent<Task> event) {
-        event.getEntity().setAssignee(taskService.findLeastBusyUser());
-    }
-
-    @Subscribe("assigneeField")
-    public void onAssigneeFieldValueChange(final HasValue.ValueChangeEvent<User> event) {
-
-    }
-
-
-
-
-
 }

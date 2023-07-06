@@ -1,5 +1,39 @@
 <window xmlns="http://jmix.io/schema/ui/window"
         caption="msg://caption">
+
+
+    <data>
+        <collection id="tasksDc" class="com.company.jmixpm.entity.Task">
+            <fetchPlan>
+                <property name="name"/>
+                <property name="startDate"/>
+                <property name="endDate"/>
+            </fetchPlan>
+            <loader id="tasksDl">
+                <query>
+                    <![CDATA[select e from Task_ e]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="projectsDc" class="com.company.jmixpm.entity.Project">
+            <fetchPlan extends="_base"/>
+            <loader id="projectsDl">
+                <query>
+                    <![CDATA[select e from Project e]]>
+                </query>
+            </loader>
+        </collection>
+
+    </data>
+    <actions>
+        <action id="addTask" caption="msg://addTask.caption" primary="true" icon="PLUS"/>
+        <action id="refresh" caption="msg://refresh.caption" icon="REFRESH"/>
+    </actions>
+
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+
     <layout expand="workArea">
         <hbox id="header"
               expand="mainMenu"
@@ -35,16 +69,32 @@
         <workArea id="workArea"
                   stylename="jmix-workarea"
                   width="100%">
-            <initialLayout margin="true"
+            <initialLayout expand="calendar"
+                           margin="true"
                            spacing="true">
-                <form id="form">
-                    <column>
-                        <entityComboBox caption="msg://form.project.caption"/>
-                        <textField caption="msg://form.name.caption"/>
-                        <dateField caption="msg://form.date.caption"/>
-                    </column>
-                </form>
-                <calendar/>
+                <hbox expand="welcomeBox" width="100%">
+                    <form id="form">
+                        <column width="400px">
+                            <entityComboBox id="projectField" caption="msg://form.project.caption" optionsContainer="projectsDc"/>
+                            <textField id="nameField" caption="msg://form.name.caption"/>
+                            <dateField id="dateField" caption="msg://form.date.caption" datatype="localDateTime"/>
+                            <hbox width="AUTO" spacing="true">
+                                <button id="addTaskBtn" action="addTask"/>
+                                <button id="refreshBtn" action="refresh"/>
+                            </hbox>
+                        </column>
+                    </form>
+                    <hbox id="welcomeBox" height="100%">
+                        <label value="msg://welcomeLabel.caption" align="MIDDLE_CENTER"/>
+                    </hbox>
+                </hbox>
+                <calendar id="calendar" width="100%"
+                          dataContainer="tasksDc"
+                          startDateProperty="startDate"
+                          endDateProperty="endDate"
+                          captionProperty="caption"
+                          firstVisibleHourOfDay="9"
+                          lastVisibleHourOfDay="18"/>
             </initialLayout>
         </workArea>
     </layout>

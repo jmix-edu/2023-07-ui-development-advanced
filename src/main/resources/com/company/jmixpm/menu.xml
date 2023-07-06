@@ -8,6 +8,7 @@
         <item screen="Task_.browse" caption="msg://com.company.jmixpm.screen.task/taskBrowse.menu"/>
         <item screen="BlankScreen" caption="msg://com.company.jmixpm.screen.blank/blankScreen.caption"/>
         <item screen="MasterTask_.browse" caption="msg://com.company.jmixpm.screen.task/masterTaskBrowse.menu"/>
+        <item screen="PostScreen" caption="msg://com.company.jmixpm.screen.post/postScreen.caption"/>
     </menu>
 
 </menu-config>

@@ -25,7 +25,7 @@
     </actions>
     <facets>
         <dataLoadCoordinator auto="true"/>
-        <screenSettings auto="true"/>
+        <screenSettings auto="false"/>
         <presentations auto="true"/>
     </facets>
     <dialogMode height="600"
@@ -46,13 +46,14 @@
                 <action id="changePassword" type="changePassword"/>
                 <action id="resetPassword" type="resetPassword"/>
                 <action id="resetRememberMeToken" type="resetRememberMeToken"/>
+                <action id="sendEmail" caption="Send" icon="SEND"/>
             </actions>
             <columns>
-                <column id="username"/>
-                <column id="firstName"/>
-                <column id="lastName"/>
-                <column id="email"/>
-                <column id="active"/>
+                <column id="username" expandRatio="1"/>
+                <column id="firstName" expandRatio="1"/>
+                <column id="lastName" expandRatio="1"/>
+                <column id="email" expandRatio="1"/>
+                <column id="active" expandRatio="4"/>
             </columns>
             <simplePagination/>
             <buttonsPanel id="buttonsPanel"
@@ -68,6 +69,7 @@
                         <action id="usersTable.resetRememberMeToken"/>
                     </actions>
                 </popupButton>
+                <button action="usersTable.sendEmail"/>
             </buttonsPanel>
         </groupTable>
         <hbox id="lookupActions" spacing="true" visible="false">
