@@ -7,8 +7,10 @@ import io.jmix.ui.UiComponents;
 import io.jmix.ui.action.Action;
 import io.jmix.ui.app.inputdialog.DialogActions;
 import io.jmix.ui.app.inputdialog.DialogOutcome;
+import io.jmix.ui.app.inputdialog.InputDialog;
 import io.jmix.ui.app.inputdialog.InputParameter;
 import io.jmix.ui.component.GroupTable;
+import io.jmix.ui.component.NotificationFacet;
 import io.jmix.ui.component.TextArea;
 import io.jmix.ui.executor.BackgroundTask;
 import io.jmix.ui.executor.BackgroundTaskHandler;
@@ -44,41 +46,65 @@ public class UserBrowse extends StandardLookup<User> {
     private Notifications notifications;
     @Autowired
     private BackgroundWorker backgroundWorker;
+    @Autowired
+    private NotificationFacet notification;
 
-    @Subscribe("usersTable.sendEmail")
-    public void onUsersTableSendEmail(final Action.ActionPerformedEvent event) {
-        dialogs.createInputDialog(this)
-                .withCaption(messageBundle.getMessage("dialog.caption"))
-                .withParameters(
-                        InputParameter.stringParameter("title")
-                                .withCaption(messageBundle.getMessage("dialog.title.caption"))
-                                .withRequired(true),
-                        InputParameter.stringParameter("body")
-                                .withField(() -> {
-                                            TextArea<String> textArea = uiComponents.create(TextArea.NAME);
-                                            textArea.setCaption("Body");
-                                            textArea.setRequired(true);
-                                            textArea.setWidthFull();
+//    @Subscribe
+//    public void onAfterShow(final AfterShowEvent event) {
+//        notification.show();
+//    }
 
-                                            return textArea;
-                                        }
-                                )
-                )
-                .withActions(DialogActions.OK_CANCEL)
-                .withCloseListener(closeEvent -> {
-                    if (closeEvent.closedWith(DialogOutcome.OK)) {
-                        String title = closeEvent.getValue("title");
-                        String body = closeEvent.getValue("body");
 
-                        Set<User> selected = usersTable.getSelected();
-                        Collection<User> users = selected.isEmpty()
-                                ? usersDc.getItems()
-                                : selected;
 
-                        doSendEmail(title, body, users);
-                    }
-                })
-                .show();
+//    @Subscribe("usersTable.sendEmail")
+//    public void onUsersTableSendEmail(final Action.ActionPerformedEvent event) {
+//        dialogs.createInputDialog(this)
+//                .withCaption(messageBundle.getMessage("dialog.caption"))
+//                .withParameters(
+//                        InputParameter.stringParameter("title")
+//                                .withCaption(messageBundle.getMessage("dialog.title.caption"))
+//                                .withRequired(true),
+//                        InputParameter.stringParameter("body")
+//                                .withField(() -> {
+//                                            TextArea<String> textArea = uiComponents.create(TextArea.NAME);
+//                                            textArea.setCaption("Body");
+//                                            textArea.setRequired(true);
+//                                            textArea.setWidthFull();
+//
+//                                            return textArea;
+//                                        }
+//                                )
+//                )
+//                .withActions(DialogActions.OK_CANCEL)
+//                .withCloseListener(closeEvent -> {
+//                    if (closeEvent.closedWith(DialogOutcome.OK)) {
+//                        String title = closeEvent.getValue("title");
+//                        String body = closeEvent.getValue("body");
+//
+//                        Set<User> selected = usersTable.getSelected();
+//                        Collection<User> users = selected.isEmpty()
+//                                ? usersDc.getItems()
+//                                : selected;
+//
+//                        doSendEmail(title, body, users);
+//                    }
+//                })
+//                .show();
+//    }
+
+    @Subscribe("inputDialog")
+    public void onInputDialogInputDialogClose(final InputDialog.InputDialogCloseEvent closeEvent) {
+        if (closeEvent.closedWith(DialogOutcome.OK)) {
+            String title = closeEvent.getValue("title");
+            String body = closeEvent.getValue("body");
+
+            Set<User> selected = usersTable.getSelected();
+            Collection<User> users = selected.isEmpty()
+                    ? usersDc.getItems()
+                    : selected;
+
+            doSendEmail(title, body, users);
+        }
     }
 
     private void doSendEmail(String title, String body, Collection<User> users) {

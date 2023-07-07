@@ -1,0 +1,23 @@
+@import "../hover/hover";
+
+@mixin hover-dark {
+  @include hover;
+
+  --checkbox-focused-background-color: var(--checkbox-background-color);
+  --checkbox-focused-border-color: var(--primary-color);
+  --checkbox-checked-background-color: var(--primary-color);
+  --checkbox-checked-border-color: var(--primary-color);
+  --checkbox-checked-color: var(--primary-contrast-text-color);
+  --checkbox-checked-focused-background-color: var(--primary-color);
+  --checkbox-checked-focused-border-color: var(--button-primary-focused-border-color);
+  --checkbox-checked-focused-color: var(--primary-contrast-text-color);
+  --checkbox-read-only-checked-background-color: var(--border-dim-color);
+  --checkbox-read-only-checked-border-color: var(--border-dim-color);
+  --checkbox-read-only-checked-color: var(--text-contrast-color);
+  --checkbox-read-only-checked-focused-background-color: var(--border-dim-color);
+  --checkbox-read-only-checked-focused-border-color: var(--border-color);
+  --checkbox-read-only-checked-focused-color: var(--text-contrast-color);
+  --radio-checked-color: var(--primary-contrast-text-color);
+  --radio-read-only-checked-color: var(--text-contrast-color);
+
+}

@@ -17,6 +17,7 @@ import java.util.List;
 @UiDescriptor("project-browse.xml")
 @LookupComponent("projectsTable")
 public class ProjectBrowse extends StandardLookup<Project> {
+
     @Autowired
     private DataManager dataManager;
     @Autowired

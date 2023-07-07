@@ -24,9 +24,32 @@
                 icon="LOOKUP_CANCEL"/>
     </actions>
     <facets>
-        <dataLoadCoordinator auto="true"/>
-        <screenSettings auto="false"/>
+        <dataLoadCoordinator auto="true">
+            <refresh loader="usersDl">
+                <onScreenEvent type="AfterInit"/>
+            </refresh>
+        </dataLoadCoordinator>
+        <screenSettings auto="true"/>
         <presentations auto="true"/>
+        <notification id="notification"
+                      caption="msg://notification.caption"
+                      type="TRAY"/>
+        <inputDialog id="inputDialog" caption="Send Email"
+                     dialogActions="OK_CANCEL"
+                     onAction="usersTable.sendEmail">
+            <parameters>
+                <stringParameter id="title"
+                                 required="true"
+                                 caption="Title"/>
+                <stringParameter id="body"
+                                 required="true"
+                                 caption="Body">
+                    <textArea caption="Body"
+                              width="100%"
+                              required="true"/>
+                </stringParameter>
+            </parameters>
+        </inputDialog>
     </facets>
     <dialogMode height="600"
                 width="800"/>
@@ -47,6 +70,7 @@
                 <action id="resetPassword" type="resetPassword"/>
                 <action id="resetRememberMeToken" type="resetRememberMeToken"/>
                 <action id="sendEmail" caption="Send" icon="SEND"/>
+                <action id="notification" caption="Show"/>
             </actions>
             <columns>
                 <column id="username" expandRatio="1"/>
@@ -69,7 +93,8 @@
                         <action id="usersTable.resetRememberMeToken"/>
                     </actions>
                 </popupButton>
-                <button action="usersTable.sendEmail"/>
+                <button action="usersTable.sendEmail" stylename="backgroundless"/>
+                <button action="usersTable.notification"/>
             </buttonsPanel>
         </groupTable>
         <hbox id="lookupActions" spacing="true" visible="false">
